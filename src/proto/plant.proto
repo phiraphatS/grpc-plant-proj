@@ -1,0 +1,49 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+package plant;
+
+service PlantService {
+  rpc getPlantOne (PlantById) returns (PlantResponse);
+  rpc GetPlantList (noMessage) returns (PlantListRespone);
+  rpc PlantATree (PlantCreate) returns (PlantResponse);
+}
+
+message noMessage {}
+
+message PlantCreate {
+  string name = 1;
+}
+
+message PlantById {
+  int32 id = 1;
+}
+
+message PlantMood {
+  int64 id = 1;
+  int32 moodLevel = 2;
+  google.protobuf.Timestamp nextLevel = 3;
+  int32 isPositive = 4;
+}
+
+message PlantResponse {
+  int64 id = 1;
+  string name = 2;
+  google.protobuf.Timestamp growsTime = 3;
+  int32 growsLevel = 4;
+  int32 isAlive = 5;
+  repeated PlantMood moods = 6;
+}
+
+message PlantListRespone {
+  repeated PlantResponse plants = 1;
+}
+
+// message PlantById {
+//   int32 id = 1;
+// }
+
+// message Plant {
+//   int32 id = 1;
+//   string name = 2;
+// }
